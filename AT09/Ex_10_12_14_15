@@ -1,0 +1,135 @@
+# ESW4°A
+# Autores: Pedro Vinicius e Marcos André
+# RA: 151638-2023 e 178292-2024
+# Data: 03/09/2025
+
+
+# Exercício 9
+
+# Exercício 10
+print("Exercício 10")
+class Funcionario:
+    # atributo de classe
+    empresa = "Empresa Padrão"
+
+    def __init__(self, nome):
+        self.nome = nome
+
+    # método de classe para alterar o nome da empresa
+    @classmethod
+    def alterar_empresa(cls, novo_nome):
+        cls.empresa = novo_nome
+
+    def mostrar_info(self):
+        print(f"Funcionário: {self.nome}, Empresa: {Funcionario.empresa}")
+
+
+# Teste
+f1 = Funcionario("Batacelia")
+f2 = Funcionario("Nakama")
+
+print("Antes da mudança:")
+f1.mostrar_info()
+f2.mostrar_info()
+
+# Alterando a empresa para todos de uma vez
+Funcionario.alterar_empresa("Tech Solutions")
+
+print("\nDepois da mudança:")
+f1.mostrar_info()
+f2.mostrar_info()
+# Exercício 11
+
+# Exercício 12
+print("\nExercício 12")
+
+class Produto:
+    def __init__(self, nome, preco):
+        self.nome = nome
+        self.preco = preco
+
+    # método mágico para exibir o objeto como string
+    def __str__(self):
+        return f"Produto: {self.nome}, Preço: R${self.preco:.2f}"
+
+    # método mágico para comparar igualdade (==) pelo preço
+    def __eq__(self, outro):
+        if isinstance(outro, Produto):  # garante que está comparando com Produto
+            return self.preco == outro.preco
+        return False
+
+
+# Teste
+p1 = Produto("Notebook", 3500.00)
+p2 = Produto("Celular", 3500.00)
+p3 = Produto("Fone", 200.00)
+
+print(p1)   # chama __str__
+print(p2)
+print(p3)
+
+print("\nComparações:")
+print(p1 == p2)  # True, pois preços iguais
+print(p1 == p3)  # False, preços diferentes
+# Exercício 13
+
+# Exercício 14
+print("\nExercício 14")
+class ContaBancaria:
+    def __init__(self, saldo_inicial):
+        self._saldo = saldo_inicial  # atributo "protegido"
+
+    # saldo pode ser acessado, mas não alterado diretamente
+    @property
+    def saldo(self):
+        return self._saldo
+
+    # métodos para alterar o saldo de forma controlada
+    def depositar(self, valor):
+        if valor > 0:
+            self._saldo += valor
+        else:
+            print("Valor de depósito inválido!")
+
+    def sacar(self, valor):
+        if 0 < valor <= self._saldo:
+            self._saldo -= valor
+        else:
+            print("Saldo insuficiente ou valor inválido!")
+
+
+# Teste
+conta = ContaBancaria(1000)
+
+print("Saldo inicial:", conta.saldo)
+
+conta.depositar(500)
+print("Depois do depósito:", conta.saldo)
+
+conta.sacar(300)
+print("Depois do saque:", conta.saldo)
+
+# Tentando alterar diretamente (não funciona)
+conta.saldo = 10000  # vai dar erro porque não tem setter
+# Exercício 15
+print("\nExercício 15")
+class Mensagem:
+    def enviar(self, conteudo, destinatario=None):
+        # verifica o tipo do conteúdo
+        if isinstance(conteudo, str):
+            print(f"Enviando mensagem de texto para {destinatario}: '{conteudo}'")
+        elif isinstance(conteudo, int):
+            print(f"Enviando número {conteudo} para {destinatario}")
+        else:
+            print("Tipo de mensagem não suportado!")
+            
+
+# Teste
+m = Mensagem()
+
+# enviando texto
+m.enviar("Olá, tudo bem?", "João")
+
+# enviando número
+m.enviar(12345, "Maria")
+
